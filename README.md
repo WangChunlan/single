@@ -1,7 +1,18 @@
+## 单例模式
+概念：确保一个类在任何情况下，都绝对只有一个实例，并且提供一个全局访问点。单例模式是创建型模式。
+核心点：
+- 私有的构造方法
+- 公有的静态方法
+
+使用的注意事项：
+单例模式在多线程下使用，必须小心！！
+
+
 > 作业内容
 
 > 1、熟练掌握单例模式的常见写法。
 
+见源码
 > 2、总结每种单例写法的优、缺点。
  #### 清单1、饿汉式(静态常量、静态代码块)
 优点：绝对的线程安全，还没有调用就初始化，效率高。<br/>
@@ -108,7 +119,11 @@ public class Singleton{
 
 ```java
 public class Singleton{
-    private Singleton(){}
+    private Singleton(){
+        if(null!=SingletonInstance.INSTANCE){
+            throw new Exception("不允许创建多个实例");
+        }
+    }
     private static class SingletonInstance{
         private static final Singleton INSTANCE=new Singleton();
     }
@@ -118,9 +133,69 @@ public class Singleton{
     }
 }
 ```
+##### 清单6、注册式单例[推荐用]
+> 注册式单例又称为登记式单例，就是将每一个实例都登记到某一个地方，使用唯一的标识获取实例。
+> 注册式单例有两种写法：1、容器缓存，2.枚举登记
+###### 方式一、枚举单例
+```java
+public enum EnumSingleton{
+    INSTANCE;
+    pirvate Object data;
+    public void setData(Object data){
+        this.data=data;
+    }
+    public Object getData(){
+           return data;
+    }
+    public static EnumSingleton  getInstance(){
+        return INSTANCE;
+    }
+}
+```
+应用
+
+###### 方式二、容器缓存
+
+
+
 
 
 
 >3、思考破坏单例模式的方式有哪些？并且归纳总结。
+
+克隆、反射、序列化可以破坏单例模式。
+###### 克隆
+
+###### 反射
+
+###### 序列化
+
+
+参考链接：[How to prevent Singleton Pattern from Reflection, Serialization and Cloning?](https://www.geeksforgeeks.org/prevent-singleton-pattern-reflection-serialization-cloning/)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 >4、梳理内部类的执行逻辑，并画出时序图。
