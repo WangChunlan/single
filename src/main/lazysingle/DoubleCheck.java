@@ -1,5 +1,8 @@
 package main.lazysingle;
-public class DoubleCheck {
+
+
+
+public class DoubleCheck   {
     private static volatile DoubleCheck singleton;
     private DoubleCheck(){}
     public static DoubleCheck getInstance(){
